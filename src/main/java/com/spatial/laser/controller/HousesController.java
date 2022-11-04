@@ -63,7 +63,7 @@ public class HousesController {
     }
 
     @GetMapping("/get-table-b-without-duplicates")
-    public List<House> getTableC() throws IOException, SQLException {
+    public List<House> getTableBWithoutDuplicates() throws IOException, SQLException {
         return houseService.listWithoutDuplicates(houseService.houseList(placekeyURL,
                 placekeyAPIKey,
                 placekeyContentType,
