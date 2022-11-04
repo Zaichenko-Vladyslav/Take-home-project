@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:3000", "https://main.d2co5a7vs607f3.amplifyapp.com"})
+@CrossOrigin(origins = {"http://localhost:3000", "https://main.d3goeq0pmrk8w1.amplifyapp.com"})
 @RestController
 @RequestMapping("/house")
 public class HouseController {
