@@ -1,5 +1,5 @@
 com/spatial/laser/service/PlacekeyService.class
-com/spatial/laser/controller/HousesController.class
 com/spatial/laser/service/HouseService.class
+com/spatial/laser/controller/HousesController.class
 com/spatial/laser/model/House.class
 com/spatial/laser/Application.class
