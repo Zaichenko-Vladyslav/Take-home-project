@@ -86,43 +86,4 @@ public class HouseService {
 
         return listResult;
     }
-
-    // Old method listWithoutDuplicates (with bug) below:
-
-//    public List<House> listWithoutDuplicates(List<House> list1, List<House> list2) {
-//
-//        List<House> listResult = list2;
-//
-//        // There are 3 possible way to find duplicates:
-//        // 1. If fields address, city, state are the same
-//        // 2. If fields address, city, state, placekey are the same
-//        // 3. If field placekey is the same, but some other fields are not the same
-//        // ( some rows can have placekey with value "Invalid address" )
-//        for (int i = 0; i < list2.size(); i++) {
-//            for (int j = 0; j < list1.size(); j++) {
-//                if (list2.get(i).getAddress().equals(list1.get(j).getAddress()) &&
-//                        list2.get(i).getCity().equals(list1.get(j).getCity()) &&
-//                        list2.get(i).getState().equals(list1.get(j).getState())) {
-//                    listResult.remove(list2.get(i));
-//                    break;
-//                }
-//                if (list2.get(i).getAddress().equals(list1.get(j).getAddress()) &&
-//                        list2.get(i).getCity().equals(list1.get(j).getCity()) &&
-//                        list2.get(i).getState().equals(list1.get(j).getState()) &&
-//                        list2.get(i).getPlacekey().equals(list1.get(j).getPlacekey())) {
-//                    listResult.remove(list2.get(i));
-//                    break;
-//                }
-//                if (list2.get(i).getPlacekey().equals(list1.get(j).getPlacekey()) &&
-//                        (!list2.get(i).getAddress().equals(list1.get(j).getAddress()) ||
-//                                !list2.get(i).getCity().equals(list1.get(j).getCity()) ||
-//                                !list2.get(i).getState().equals(list1.get(j).getState()))) {
-//                    listResult.remove(list2.get(i));
-//                    break;
-//                }
-//            }
-//        }
-//
-//        return listResult;
-//    }
 }

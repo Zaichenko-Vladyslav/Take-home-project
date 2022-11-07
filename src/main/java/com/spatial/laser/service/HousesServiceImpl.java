@@ -30,7 +30,6 @@ public class HousesServiceImpl implements HousesService {
         return housesRepository.getTableB();
     }
 
-    @Override
     public List<Houses> getTableBWithoutDuplicates(String placekeyURL,
                                                    String placekeyAPIKey,
                                                    String placekeyContentType) throws IOException {
