@@ -43,4 +43,9 @@ public class HousesController {
     public List<Houses> getTableBWithoutDuplicates() throws IOException {
         return housesService.getTableBWithoutDuplicates(placekeyURL, placekeyAPIKey, placekeyContentType);
     }
+
+    @GetMapping("/get-table-b-without-duplicates-alternative")
+    public List<Houses> getTableBWithoutDuplicatesAlternative() throws IOException {
+        return housesService.getTableBWithoutDuplicatesAlternative(placekeyURL, placekeyAPIKey, placekeyContentType);
+    }
 }

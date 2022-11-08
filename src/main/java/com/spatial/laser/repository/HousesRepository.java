@@ -16,4 +16,7 @@ public interface HousesRepository extends JpaRepository<Houses, HousesId> {
 
     @Query(nativeQuery = true, value = "select * from table_b")
     List<Houses> getTableB();
+
+    @Query(nativeQuery = true, value = "select * from table_a union all select * from table_b")
+    List<Houses> getTableAAndB();
 }

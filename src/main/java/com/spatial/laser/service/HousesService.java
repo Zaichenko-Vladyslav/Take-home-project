@@ -17,4 +17,9 @@ public interface HousesService {
     List<Houses> getTableBWithoutDuplicates(String placekeyURL,
                                             String placekeyAPIKey,
                                             String placekeyContentType) throws IOException;
+
+    // get table B without duplicates alternative
+    List<Houses> getTableBWithoutDuplicatesAlternative(String placekeyURL,
+                                            String placekeyAPIKey,
+                                            String placekeyContentType) throws IOException;
 }

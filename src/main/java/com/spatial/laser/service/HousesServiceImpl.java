@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -79,5 +80,73 @@ public class HousesServiceImpl implements HousesService {
         }
 
         return listTableB;
+    }
+
+    @Override
+    public List<Houses> getTableBWithoutDuplicatesAlternative(String placekeyURL,
+                                String placekeyAPIKey,
+                                String placekeyContentType) throws IOException {
+
+        // Get two initial lists
+        List<Houses> listA = housesRepository.getTableA();
+        List<Houses> listB = housesRepository.getTableB();
+
+        // Get list A + list B
+        List<Houses> listAB = housesRepository.getTableAAndB();
+
+        // Initialise list result based on table B (without duplicates)
+        List<Houses> listResult = new ArrayList<>();
+
+        // if table_b contain item and table_a does not contain exactly the same item, add item to listResult
+        // in the same time check if this item already in the listResult
+        for (Houses item : listAB) {
+            if (listB.contains(item) && !listA.contains(item) && !listResult.contains(item)) {
+                listResult.add(item);
+            }
+        }
+
+        // some items can have the same placekey, but in the same time have a different addresses
+        // checking listResult for duplicates by additional parameter - placekey
+        outerLoop: for (Houses listResultItem : listResult) {
+
+            String placekeyForItemInResultList = placekeyService.generatePlacekey(
+                    placekeyURL,
+                    placekeyAPIKey,
+                    placekeyContentType,
+                    listResultItem.getId().getAddress(),
+                    listResultItem.getId().getCity(),
+                    listResultItem.getId().getState());
+
+            // Firstly, checking items with placekey not equals "Invalid address"
+            // Secondly checking items with placekey equals "Invalid address"
+            if (!placekeyForItemInResultList.equals("Invalid address")) {
+                for (Houses listAItem : listA) {
+                    String placekeyForItemInListA = placekeyService.generatePlacekey(
+                            placekeyURL,
+                            placekeyAPIKey,
+                            placekeyContentType,
+                            listAItem.getId().getAddress(),
+                            listAItem.getId().getCity(),
+                            listAItem.getId().getState());
+                    if (placekeyForItemInResultList.equals(placekeyForItemInListA)) {
+                        listResult.remove(listResultItem);
+                        break outerLoop;
+                    }
+                }
+            } else {
+                // It is possible to find a few more duplicates by standardizing address field
+                for (Houses listAItem : listA) {
+                    if (standardAddressService.standardizeAddress(listResultItem.getId().getAddress())
+                            .equals(standardAddressService.standardizeAddress(listAItem.getId().getAddress()))
+                    && listResultItem.getId().getCity().equals(listAItem.getId().getCity())
+                    && listResultItem.getId().getState().equals(listAItem.getId().getState())) {
+                        listResult.remove(listResultItem);
+                        break outerLoop;
+                    }
+                }
+            }
+        }
+
+        return listResult;
     }
 }
